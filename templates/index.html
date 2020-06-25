@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h2> Welcome to Booksip! </h2>
+    <form action="{{ url_for('index') }}" method="POST">
+        <label for="selection">Search book by: </label>
+        <select id="selection" name="attributes">
+            <option value="isbn">ISBN</option>
+            <option value="title" selected="selected">Title</option>
+            <option value="author">Author</option>
+        </select>
+        <input type="text" required="required" name="book_info" placeholder="Enter information">
+        <button>Search</button>
+    </form>
+    <ol>
+        {% for book in results %}
+        <li><a href="{{ url_for('book', isbn=book.isbn) }}">
+        {{ book.title }} | {{ book.author }} | {{ book.year }}
+        </a></li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}

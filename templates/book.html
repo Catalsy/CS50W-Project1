@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h2> {{ book.title }} </h2>
+    <h5>Author: {{ book.author }}</h5> 
+    <h5>Year: {{ book.year }}</h5> 
+    <h5>ISBN: {{ book.isbn }}</h5>
+    <h5>Ratings on Goodreads: {{ rating_count }} -> Average: {{ average_rating }}</h5>
+    <img src="/static/book.jpg">
+    <h3>Reviews</h3>
+    <form action="{{ url_for('book', isbn=book.isbn) }}" method="POST">
+        <label for="selection">Rating: </label>
+        <select id="selection" name="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br>
+        <input style="height:100px" type="text" required="required" name="review" placeholder="Write a review!">
+        <br>
+        <button>Post</button>
+    </form>
+
+    {% for review in reviews %}
+    <p>{{ review.review }}</p>
+    <li>{{ review.username }}. Rating: {{ review.rating }}</li>
+    {% endfor %}
+    
+
+{% endblock %}
